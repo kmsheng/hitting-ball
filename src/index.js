@@ -26,17 +26,10 @@ const draw = game => {
   ship.setCanvasSize(canvasWidth, canvasHeight);
   const shipRect = ship.getRect();
 
-  painter.fillRect(shipRect.x, shipRect.y, shipRect.width, shipRect.height);
-
-  game.bricks.forEach(brick => {
-    painter.fillRect(brick.x, brick.y, brick.width, brick.height, brick.color);
-    painter.rect(brick.x, brick.y, brick.width, brick.height);
-  });
 
   if (ship.isBallSticked) {
     ball.setPos(shipRect.x + parseInt(shipRect.width / 2), shipRect.y - ball.radius);
   }
-  painter.drawCircle(ball.pos.x, ball.pos.y, ball.radius);
 
   if (! ship.isBallSticked) {
     ball.setNextPos();
@@ -89,6 +82,14 @@ const draw = game => {
     }
     lastCollisions = collisions;
   }
+
+  painter.fillRect(shipRect.x, shipRect.y, shipRect.width, shipRect.height);
+
+  game.bricks.forEach(brick => {
+    painter.fillRect(brick.x, brick.y, brick.width, brick.height, brick.color);
+    painter.rect(brick.x, brick.y, brick.width, brick.height);
+  });
+  painter.drawCircle(ball.pos.x, ball.pos.y, ball.radius);
 };
 
 const game = new Game(draw);
