@@ -8,19 +8,21 @@ import bricksArr from './../fixtures/bricks';
 class Game {
 
   constructor(draw) {
-    this.ship = new Ship();
-    this.ball = new Ball();
     this.draw = draw || (() => {});
+
     this.isStarted = false;
     this.isPaused = false;
+
     this.level = 1;
     this.score = 0;
+    this.startedTime = 0;
+    this.pausedTime = 0;
+
+    this.ship = new Ship();
+    this.ball = new Ball();
     this.bricks = bricksArr[this.level - 1];
 
     this.init();
-
-    this.startedTime = 0;
-    this.pausedTime = 0;
   }
 
   startAnimation() {
