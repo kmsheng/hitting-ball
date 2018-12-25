@@ -90,6 +90,14 @@ const draw = game => {
     painter.rect(brick);
   });
   painter.drawCircle(ball.pos.x, ball.pos.y, ball.radius);
+
+  if (! game.isStarted) {
+    const seconds = parseInt(+new Date() / 1000, 10);
+    if (seconds % 2 !== 0) {
+      painter.showGameTip('press space key to start', canvasWidth / 2, canvasHeight / 2 + 40);
+    }
+  }
+
 };
 
 const game = new Game(draw);
