@@ -93,6 +93,4 @@ const draw = game => {
 
 const game = new Game(draw);
 
-game.ball.setPos(canvasWidth / 2, canvasHeight / 2);
-
 game.start();
