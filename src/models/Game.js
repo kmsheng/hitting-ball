@@ -10,6 +10,7 @@ class Game {
     this.ship = new Ship();
     this.ball = new Ball();
     this.draw = draw || (() => {});
+    this.isStarted = false;
     this.isPaused = false;
     this.level = 1;
     this.bricks = bricksArr[this.level - 1];
@@ -23,6 +24,7 @@ class Game {
   }
 
   start() {
+    this.isStarted = true;
   }
 
   init() {
@@ -36,7 +38,12 @@ class Game {
       .subscribe(() => this.isPaused ? this.resume() : this.pause());
 
     this.space$ = this.mousedown$.pipe(filter(key => key === ' '))
-      .subscribe(() => this.ship.release());
+      .subscribe(() => {
+        if (! this.isStarted) {
+          this.isStarted = true;
+          this.ship.release()
+        }
+      });
 
     this.left$ = this.mousedown$.pipe(filter(key => key === 'ArrowLeft'))
       .subscribe(() => {
