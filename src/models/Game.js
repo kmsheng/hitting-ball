@@ -80,6 +80,13 @@ class Game {
     this.isPaused = true;
     this.animation$.unsubscribe();
   }
+
+  clearBricks(indices) {
+    indices.forEach(i => {
+      this.bricks.splice(i, 1)
+      this.score += 40;
+    });
+  }
 }
 
 export default Game;

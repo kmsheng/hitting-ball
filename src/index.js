@@ -59,7 +59,7 @@ const draw = game => {
       return brick;
     });
 
-  brickCollisionIndices.forEach(i => game.bricks.splice(i, 1));
+  game.clearBricks(brickCollisionIndices);
 
   if (brickCollisions.length > 0) {
     collisions = collisions.concat(brickCollisions);
