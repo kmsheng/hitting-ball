@@ -43,6 +43,23 @@ class Painter {
     ctx.textAlign = 'right';
     ctx.fillText(score, x, y);
   }
+
+  showTime(seconds, x, y) {
+
+    const {ctx} = this;
+    ctx.font = '11pt Arial';
+    ctx.textAlign = 'left';
+
+    const hours = parseInt(seconds / 3600, 10);
+    const mins = parseInt((seconds - (hours * 3600)) / 60, 10);
+    const secs = parseInt(seconds - (hours * 3600) - (mins * 60), 10);
+
+    const hh = String(hours).padStart(2, '0');
+    const mm = String(mins).padStart(2, '0');
+    const ss = String(secs).padStart(2, '0');
+
+    ctx.fillText(`${hh}:${mm}:${ss}`, x, y);
+  }
 }
 
 export default Painter;

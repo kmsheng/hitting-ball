@@ -2,6 +2,7 @@ import {Scheduler, Observable, interval, timer, fromEvent} from 'rxjs';
 import {repeat, takeWhile, map, pluck, filter, throttleTime} from 'rxjs/operators';
 import Ship from './Ship';
 import Ball from './Ball';
+import now from './../helpers/now';
 import bricksArr from './../fixtures/bricks';
 
 class Game {
@@ -17,6 +18,9 @@ class Game {
     this.bricks = bricksArr[this.level - 1];
 
     this.init();
+
+    this.startedTime = 0;
+    this.pausedTime = 0;
   }
 
   startAnimation() {
@@ -26,6 +30,14 @@ class Game {
 
   start() {
     this.isStarted = true;
+    this.startedTime = now();
+  }
+
+  getDuration() {
+    if (this.startedTime !== 0) {
+      return now() - this.startedTime;
+    }
+    return 0;
   }
 
   init() {
@@ -36,12 +48,17 @@ class Game {
       .pipe(throttleTime(10), pluck('key'));
 
     this.esc$ = this.mousedown$.pipe(filter(key => key === 'Escape'))
-      .subscribe(() => this.isPaused ? this.resume() : this.pause());
+      .subscribe(() => {
+        if (! this.isStarted) {
+          return;
+        }
+        return this.isPaused ? this.resume() : this.pause();
+      });
 
     this.space$ = this.mousedown$.pipe(filter(key => key === ' '))
       .subscribe(() => {
         if (! this.isStarted) {
-          this.isStarted = true;
+          this.start();
           this.ship.release()
         }
       });
@@ -72,11 +89,16 @@ class Game {
   }
 
   resume() {
+    const delta = now() - this.pausedTime;
+    this.startedTime += delta;
+    this.pausedTime = 0;
+
     this.isPaused = false;
     this.startAnimation();
   }
 
   pause() {
+    this.pausedTime = now();
     this.isPaused = true;
     this.animation$.unsubscribe();
   }
