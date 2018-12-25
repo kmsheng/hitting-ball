@@ -13,6 +13,7 @@ class Game {
     this.isStarted = false;
     this.isPaused = false;
     this.level = 1;
+    this.score = 0;
     this.bricks = bricksArr[this.level - 1];
 
     this.init();

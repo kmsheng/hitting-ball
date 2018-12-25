@@ -36,6 +36,13 @@ class Painter {
     ctx.textAlign = 'center';
     ctx.fillText(text.toUpperCase(), x, y);
   }
+
+  showScore(score, x, y) {
+    const {ctx} = this;
+    ctx.font = '11pt Arial';
+    ctx.textAlign = 'right';
+    ctx.fillText(score, x, y);
+  }
 }
 
 export default Painter;

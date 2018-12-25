@@ -91,6 +91,8 @@ const draw = game => {
   });
   painter.drawCircle(ball.pos.x, ball.pos.y, ball.radius);
 
+  painter.showScore(game.score, canvasWidth - 10, 20);
+
   if (! game.isStarted) {
     const seconds = parseInt(+new Date() / 1000, 10);
     if (seconds % 2 !== 0) {
