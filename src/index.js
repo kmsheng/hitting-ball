@@ -20,11 +20,11 @@ let lastCollisions = null;
 
 const draw = game => {
 
+  ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+
   const {ship, ball} = game;
   ship.setCanvasSize(canvasWidth, canvasHeight);
   const shipRect = ship.getRect();
-
-  ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
   painter.fillRect(shipRect.x, shipRect.y, shipRect.width, shipRect.height);
 
