@@ -101,5 +101,3 @@ const draw = game => {
 };
 
 const game = new Game(draw);
-
-game.start();
