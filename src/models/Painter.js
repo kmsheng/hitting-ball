@@ -29,6 +29,13 @@ class Painter {
     ctx.fill();
     ctx.closePath();
   }
+
+  showGameTip(text, x, y) {
+    const {ctx} = this;
+    ctx.font = '11pt Arial';
+    ctx.textAlign = 'center';
+    ctx.fillText(text.toUpperCase(), x, y);
+  }
 }
 
 export default Painter;
