@@ -31,6 +31,9 @@ class Game {
   }
 
   getDuration() {
+    if (this.isPaused) {
+      return this.pausedTime - this.startedTime;
+    }
     if (this.startedTime !== 0) {
       return now() - this.startedTime;
     }
