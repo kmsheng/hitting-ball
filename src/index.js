@@ -4,6 +4,7 @@ import createHiDpiCanvas from './helpers/createHiDpiCanvas';
 import Game from './models/Game';
 import Rect from './models/Rect';
 import Painter from './models/Painter';
+import now from './helpers/now';
 import detectRectCollision from './helpers/detectRectCollision';
 
 require('normalize.css/normalize.css');
@@ -94,8 +95,7 @@ const draw = game => {
   painter.showScore(game.score, canvasWidth - 10, 20);
 
   if (! game.isStarted) {
-    const seconds = parseInt(+new Date() / 1000, 10);
-    if (seconds % 2 !== 0) {
+    if (now() % 2 !== 0) {
       painter.showGameTip('press space key to start', canvasWidth / 2, canvasHeight / 2 + 40);
     }
   }
