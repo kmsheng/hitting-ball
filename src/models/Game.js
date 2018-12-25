@@ -13,6 +13,8 @@ class Game {
     this.isPaused = false;
     this.level = 1;
     this.bricks = bricksArr[this.level - 1];
+
+    this.init();
   }
 
   startAnimation() {
@@ -21,6 +23,9 @@ class Game {
   }
 
   start() {
+  }
+
+  init() {
 
     this.startAnimation();
 
