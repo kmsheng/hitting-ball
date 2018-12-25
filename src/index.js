@@ -76,7 +76,7 @@ const draw = game => {
     ball.setDegreeByCollisions(collisions);
 
     if (shipCollision === 'BOTTOM') {
-      let newDegree = ball.degree + game.ballDegreeDelta;
+      let newDegree = ball.degree + ship.power;
 
       if (newDegree < 5) {
         newDegree = 20;
@@ -85,7 +85,7 @@ const draw = game => {
         newDegree = 160;
       }
       ball.setDegree(newDegree);
-      game.ballDegreeDelta = 0;
+      ship.power = 0;
     }
     lastCollisions = collisions;
   }

@@ -19,6 +19,7 @@ class Ship {
     this.canvasWidth = 0;
     this.canvasHeight = 0;
     this.isBallSticked = true;
+    this.power = 0;
   }
 
   setCanvasSize(width, height) {

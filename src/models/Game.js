@@ -11,7 +11,6 @@ class Game {
     this.ball = new Ball();
     this.draw = draw || (() => {});
     this.isPaused = false;
-    this.ballDegreeDelta = 0;
     this.level = 1;
     this.bricks = bricksArr[this.level - 1];
   }
@@ -36,24 +35,26 @@ class Game {
 
     this.left$ = this.mousedown$.pipe(filter(key => key === 'ArrowLeft'))
       .subscribe(() => {
-        this.ship.goLeft();
+        const {ship} = this;
+        ship.goLeft();
 
-        if (this.ballDegreeDelta < 0) {
-          this.ballDegreeDelta = 0;
+        if (ship.power < 0) {
+          ship.power = 0;
         }
-        this.ballDegreeDelta += 4;
-        this.ballDegreeDelta = Math.min(this.ballDegreeDelta, 30);
+        ship.power += 4;
+        ship.power = Math.min(ship.power, 30);
       });
 
     this.right$ = this.mousedown$.pipe(filter(key => key === 'ArrowRight'))
       .subscribe(() => {
-        this.ship.goRight();
+        const {ship} = this;
+        ship.goRight();
 
-        if (this.ballDegreeDelta > 0) {
-          this.ballDegreeDelta = 0;
+        if (ship.power > 0) {
+          ship.power = 0;
         }
-        this.ballDegreeDelta -= 4;
-        this.ballDegreeDelta = Math.max(this.ballDegreeDelta, -30);
+        ship.power -= 4;
+        ship.power = Math.max(ship.power, -30);
       });
   }
 
