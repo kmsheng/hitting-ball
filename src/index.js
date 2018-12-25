@@ -32,7 +32,7 @@ const draw = game => {
     ball.setPos(shipRect.x + parseInt(shipRect.width / 2), shipRect.y - ball.radius);
   }
 
-  if (! ship.isBallSticked) {
+  if ((! ship.isBallSticked) && (! game.isPaused)) {
     ball.setNextPos();
   }
 
@@ -101,6 +101,12 @@ const draw = game => {
     }
   }
 
+  if (game.isPaused) {
+    if (now() % 2 !== 0) {
+      painter.showGameTip('press esc key to resume', canvasWidth / 2, canvasHeight / 2 + 40);
+    }
+    return;
+  }
 };
 
 const game = new Game(draw);

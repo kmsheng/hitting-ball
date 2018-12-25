@@ -25,11 +25,6 @@ class Game {
     this.init();
   }
 
-  startAnimation() {
-    this.animation$ = interval(0, Scheduler.animationFrame)
-      .subscribe(() => this.draw(this));
-  }
-
   start() {
     this.isStarted = true;
     this.startedTime = now();
@@ -44,7 +39,8 @@ class Game {
 
   init() {
 
-    this.startAnimation();
+    this.animation$ = interval(0, Scheduler.animationFrame)
+      .subscribe(() => this.draw(this));
 
     this.mousedown$ = fromEvent(document, 'keydown')
       .pipe(throttleTime(10), pluck('key'));
@@ -67,6 +63,9 @@ class Game {
 
     this.left$ = this.mousedown$.pipe(filter(key => key === 'ArrowLeft'))
       .subscribe(() => {
+        if (this.isPaused) {
+          return;
+        }
         const {ship} = this;
         ship.goLeft();
 
@@ -79,6 +78,9 @@ class Game {
 
     this.right$ = this.mousedown$.pipe(filter(key => key === 'ArrowRight'))
       .subscribe(() => {
+        if (this.isPaused) {
+          return;
+        }
         const {ship} = this;
         ship.goRight();
 
@@ -96,13 +98,11 @@ class Game {
     this.pausedTime = 0;
 
     this.isPaused = false;
-    this.startAnimation();
   }
 
   pause() {
     this.pausedTime = now();
     this.isPaused = true;
-    this.animation$.unsubscribe();
   }
 
   clearBricks(indices) {
