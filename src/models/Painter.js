@@ -4,7 +4,8 @@ class Painter {
     this.ctx = ctx;
   }
 
-  fillRect(x, y, width, height, style = 'black') {
+  fillRect(rect, style = 'black') {
+    const {x, y, width, height} = rect;
     const {ctx} = this;
     ctx.fillStyle = style;
     ctx.fillRect(x, y, width, height);

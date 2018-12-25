@@ -83,10 +83,10 @@ const draw = game => {
     lastCollisions = collisions;
   }
 
-  painter.fillRect(shipRect.x, shipRect.y, shipRect.width, shipRect.height);
+  painter.fillRect(shipRect);
 
   game.bricks.forEach(brick => {
-    painter.fillRect(brick.x, brick.y, brick.width, brick.height, brick.color);
+    painter.fillRect(brick, brick.color);
     painter.rect(brick.x, brick.y, brick.width, brick.height);
   });
   painter.drawCircle(ball.pos.x, ball.pos.y, ball.radius);
