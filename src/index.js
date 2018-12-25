@@ -87,7 +87,7 @@ const draw = game => {
 
   game.bricks.forEach(brick => {
     painter.fillRect(brick, brick.color);
-    painter.rect(brick.x, brick.y, brick.width, brick.height);
+    painter.rect(brick);
   });
   painter.drawCircle(ball.pos.x, ball.pos.y, ball.radius);
 };

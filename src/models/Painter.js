@@ -11,7 +11,8 @@ class Painter {
     ctx.fillRect(x, y, width, height);
   }
 
-  rect(x, y, width, height, style = 'black') {
+  rect(rect, style = 'black') {
+    const {x, y, width, height} = rect;
     const {ctx} = this;
     ctx.beginPath();
     ctx.strokeStyle = style;
