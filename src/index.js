@@ -98,6 +98,23 @@ const draw = game => {
 
   painter.showTime(game.getDuration(), 10, 20);
 
+  game.checkWinning();
+
+  if (game.hasWon) {
+
+      if (game.hasNextLevel()) {
+        painter.showGameTip(`level ${game.level} cleared`, canvasWidth / 2, canvasHeight / 2 + 40);
+        if ((now() - game.wonTime) > 2) {
+          game.toNextLevel();
+          ship.isBallSticked = true;
+        }
+      }
+      else {
+        painter.showGameTip('all level cleared !', canvasWidth / 2, canvasHeight / 2 + 40);
+        painter.showGameTip('thanks for playing !', canvasWidth / 2, canvasHeight / 2 + 60);
+      }
+  }
+
   if (! game.isStarted) {
     if (now() % 2 !== 0) {
       painter.showGameTip('press space key to start', canvasWidth / 2, canvasHeight / 2 + 40);
