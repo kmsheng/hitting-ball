@@ -128,8 +128,10 @@ class Game {
     }
 
     indices.forEach(i => {
-      this.bricks.splice(i, 1)
-      this.score += 40;
+      if (this.bricks[i].isBreakable) {
+        this.bricks.splice(i, 1)
+        this.score += 40;
+      }
     });
   }
 
