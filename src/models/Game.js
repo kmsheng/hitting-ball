@@ -22,7 +22,7 @@ class Game {
 
     this.ship = new Ship();
     this.ball = new Ball();
-    this.bricks = bricksArr[this.level - 1];
+    this.bricks = bricksArr[this.level - 1].slice();
 
     this.init();
   }
