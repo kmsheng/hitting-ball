@@ -105,7 +105,6 @@ const draw = game => {
     if (now() % 2 !== 0) {
       painter.showGameTip('press esc key to resume', canvasWidth / 2, canvasHeight / 2 + 40);
     }
-    return;
   }
 };
 
