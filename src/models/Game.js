@@ -135,6 +135,13 @@ class Game {
     });
   }
 
+  checkWinning() {
+    const bricksRemain = this.bricks.filter(brick => brick.isBreakable).length;
+    if (bricksRemain === 0) {
+      this.win();
+    }
+  }
+
   hasNextLevel() {
     return typeof bricksArr[this.level] !== 'undefined';
   }
