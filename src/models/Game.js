@@ -10,6 +10,7 @@ class Game {
   constructor(draw) {
     this.draw = draw || (() => {});
 
+    this.hasWon = false;
     this.isStarted = false;
     this.isPaused = false;
 
@@ -17,6 +18,7 @@ class Game {
     this.score = 0;
     this.startedTime = 0;
     this.pausedTime = 0;
+    this.wonTime = 0;
 
     this.ship = new Ship();
     this.ball = new Ball();
@@ -50,6 +52,9 @@ class Game {
 
     this.esc$ = this.mousedown$.pipe(filter(key => key === 'Escape'))
       .subscribe(() => {
+        if (this.hasWon) {
+          return;
+        }
         if (! this.isStarted) {
           return;
         }
@@ -108,7 +113,17 @@ class Game {
     this.isPaused = true;
   }
 
+  win() {
+    this.hasWon = true;
+    this.wonTime = now();
+  }
+
   clearBricks(indices) {
+
+    if (this.hasWon) {
+      return;
+    }
+
     indices.forEach(i => {
       this.bricks.splice(i, 1)
       this.score += 40;
