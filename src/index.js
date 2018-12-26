@@ -32,16 +32,21 @@ const draw = game => {
     ball.setPos(shipRect.x + parseInt(shipRect.width / 2), shipRect.y - ball.radius);
   }
 
-  if ((! ship.isBallSticked) && (! game.isPaused) && (! game.hasWon)) {
+  if ((! ship.isBallSticked) && (! game.isPaused) && (! game.hasWon) && (! game.hasLost)) {
     ball.setNextPos();
   }
 
   const items = [
     new Rect({x: 0, y: -1, width: canvasWidth, height: 1}),
     new Rect({x: -1, y: 0, width: 1, height: canvasHeight}),
-    new Rect({x: 0, y: canvasHeight, width: canvasWidth, height: 1}),
+
+    // uncomment this for debug purpose
+    // new Rect({x: 0, y: canvasHeight, width: canvasWidth, height: 1}),
+
     new Rect({x: canvasWidth, y: 0, width: 1, height: canvasHeight}),
   ];
+
+
   let collisions = items.map(item => detectRectCollision(ball, item))
     .filter(item => item);
 
@@ -98,7 +103,7 @@ const draw = game => {
 
   painter.showTime(game.getDuration(), 10, 20);
 
-  game.checkWinning();
+  game.check(canvasHeight);
 
   if (game.hasWon) {
 
@@ -113,6 +118,12 @@ const draw = game => {
         painter.showGameTip('all level cleared !', canvasWidth / 2, canvasHeight / 2 + 40);
         painter.showGameTip('thanks for playing !', canvasWidth / 2, canvasHeight / 2 + 60);
       }
+  }
+  else if (game.hasLost) {
+    painter.showGameTip('you lost', canvasWidth / 2, canvasHeight / 2 + 40);
+    if ((now() - game.lostTime) > 2) {
+      game.reset();
+    }
   }
 
   if (! game.isStarted) {

@@ -11,6 +11,7 @@ class Game {
     this.draw = draw || (() => {});
 
     this.hasWon = false;
+    this.hasLost = false;
     this.isStarted = false;
     this.isPaused = false;
 
@@ -33,6 +34,9 @@ class Game {
   }
 
   getDuration() {
+    if (this.hasLost) {
+      return this.lostTime - this.startedTime;
+    }
     if (this.hasWon) {
       return this.wonTime - this.startedTime;
     }
@@ -122,6 +126,7 @@ class Game {
   }
 
   clearBricks(indices) {
+
     indices.forEach(i => {
       if (this.bricks[i].isBreakable) {
         this.bricks.splice(i, 1)
@@ -130,14 +135,22 @@ class Game {
     });
   }
 
-  checkWinning() {
-    if (this.hasWon) {
+  check(canvasHeight) {
+    if (this.hasWon || this.hasLost) {
       return;
+    }
+    if (this.ball.pos.y > (canvasHeight + 20)) {
+      return this.lose();
     }
     const bricksRemain = this.bricks.filter(brick => brick.isBreakable).length;
     if (bricksRemain === 0) {
       this.win();
     }
+  }
+
+  lose() {
+    this.hasLost = true;
+    this.lostTime = now();
   }
 
   hasNextLevel() {
@@ -151,6 +164,19 @@ class Game {
     this.wonTime = 0;
     this.level += 1;
     this.bricks = bricksArr[this.level - 1].slice();
+  }
+
+  reset() {
+    this.score = 0;
+    this.isStarted = false;
+    this.hasWon = false;
+    this.hasLost = false;
+    this.startedTime = 0;
+    this.wonTime = 0;
+    this.lostTime = 0;
+    this.level = 1;
+    this.bricks = bricksArr[this.level - 1].slice();
+    this.ship.isBallSticked = true;
   }
 }
 
