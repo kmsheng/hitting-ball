@@ -32,7 +32,7 @@ const draw = game => {
     ball.setPos(shipRect.x + parseInt(shipRect.width / 2), shipRect.y - ball.radius);
   }
 
-  if ((! ship.isBallSticked) && (! game.isPaused)) {
+  if ((! ship.isBallSticked) && (! game.isPaused) && (! game.hasWon)) {
     ball.setNextPos();
   }
 
