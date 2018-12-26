@@ -44,6 +44,13 @@ class Painter {
     ctx.fillText(score, x, y);
   }
 
+  showLevel(level, x, y) {
+    const {ctx} = this;
+    ctx.font = '11pt Arial';
+    ctx.textAlign = 'center';
+    ctx.fillText(`LEVEL ${level}`, x, y);
+  }
+
   showTime(seconds, x, y) {
 
     const {ctx} = this;
