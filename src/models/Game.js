@@ -130,6 +130,10 @@ class Game {
     });
   }
 
+  hasNextLevel() {
+    return typeof bricksArr[this.level] !== 'undefined';
+  }
+
   toNextLevel() {
     this.isStarted = false;
     this.hasWon = false;
