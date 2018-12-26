@@ -129,6 +129,15 @@ class Game {
       this.score += 40;
     });
   }
+
+  toNextLevel() {
+    this.isStarted = false;
+    this.hasWon = false;
+    this.startedTime = 0;
+    this.wonTime = 0;
+    this.level += 1;
+    this.bricks = bricksArr[this.level - 1].slice();
+  }
 }
 
 export default Game;
