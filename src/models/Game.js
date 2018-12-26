@@ -33,6 +33,9 @@ class Game {
   }
 
   getDuration() {
+    if (this.hasWon) {
+      return this.wonTime - this.startedTime;
+    }
     if (this.isPaused) {
       return this.pausedTime - this.startedTime;
     }
