@@ -122,11 +122,6 @@ class Game {
   }
 
   clearBricks(indices) {
-
-    if (this.hasWon) {
-      return;
-    }
-
     indices.forEach(i => {
       if (this.bricks[i].isBreakable) {
         this.bricks.splice(i, 1)
@@ -136,6 +131,9 @@ class Game {
   }
 
   checkWinning() {
+    if (this.hasWon) {
+      return;
+    }
     const bricksRemain = this.bricks.filter(brick => brick.isBreakable).length;
     if (bricksRemain === 0) {
       this.win();
