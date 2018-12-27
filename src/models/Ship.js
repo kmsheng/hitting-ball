@@ -22,6 +22,10 @@ class Ship {
     this.power = 0;
   }
 
+  restoreToDefaultWidth() {
+    this.width = DEFAULT_SHIP_WIDTH;
+  }
+
   setCanvasSize(width, height) {
     this.canvasWidth = width;
     this.canvasHeight = height;
