@@ -13,6 +13,10 @@ class Ball {
     this.setRandomDegree(85, 95);
   }
 
+  restoreToDefaultRadius() {
+    this.radius = DEFAULT_BALL_RADIUS;
+  }
+
   setPos(x, y) {
     this.pos.x = x;
     this.pos.y = y;
