@@ -1,12 +1,26 @@
 export default function detectRectCollision(item, rect) {
 
   const {x, y} = item.pos;
-  const {radius} = item;
 
-  const itemLeft = x - radius;
-  const itemRight = x + radius;
-  const itemTop = y - radius;
-  const itemBottom = y + radius;
+  let itemLeft;
+  let itemRight;
+  let itemTop;
+  let itemBottom;
+
+  if ('radius' in item) {
+    const {radius} = item;
+    itemLeft = x - radius;
+    itemRight = x + radius;
+    itemTop = y - radius;
+    itemBottom = y + radius;
+  }
+  else {
+    const {width, height} = item;
+    itemLeft = x;
+    itemRight = x + width;
+    itemTop = y;
+    itemBottom = y + height;
+  }
 
   const rectTop = rect.y;
   const rectBottom = rect.y + rect.height;
