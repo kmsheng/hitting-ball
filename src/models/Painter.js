@@ -1,3 +1,5 @@
+import toRad from './../helpers/toRad';
+
 class Painter {
 
   constructor(ctx) {
@@ -66,6 +68,25 @@ class Painter {
     const ss = String(secs).padStart(2, '0');
 
     ctx.fillText(`${hh}:${mm}:${ss}`, x, y);
+  }
+
+  drawPill(x, y, width, height, style = '#34e7e4') {
+    const radius = height / 2;
+    const middleWidth = width - (radius * 2);
+    const {ctx} = this;
+    ctx.beginPath();
+    ctx.strokeStyle = '#555';
+    ctx.fillStyle = style;
+    ctx.arc(x + radius, y + radius, radius, toRad(90), toRad(270));
+    ctx.lineTo(x + middleWidth, y);
+    ctx.arc(x + radius + middleWidth, y + radius, radius, toRad(270), toRad(90));
+    ctx.lineTo(x + radius, y + (radius * 2));
+    ctx.stroke();
+    ctx.fill();
+    ctx.moveTo(x + (width / 2), y);
+    ctx.lineTo(x + (width / 2), y + height);
+    ctx.stroke();
+    ctx.closePath();
   }
 }
 
