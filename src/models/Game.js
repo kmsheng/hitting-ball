@@ -219,6 +219,7 @@ class Game {
     this.ship.isBallSticked = true;
     this.pills.length = 0;
     this.setBricks();
+    this.clearEffect();
   }
 
   clearEffect() {
