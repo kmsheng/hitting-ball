@@ -5,7 +5,13 @@ import Game from './models/Game';
 import Rect from './models/Rect';
 import Painter from './models/Painter';
 import now from './helpers/now';
+import randomColor from './helpers/randomColor';
 import detectRectCollision from './helpers/detectRectCollision';
+import {
+  EFFECT_BALL_THROUGH,
+  EFFECT_FAST_SPEED,
+  EFFECT_SLOW_SPEED
+} from './constants';
 
 require('normalize.css/normalize.css');
 require('../assets/scss/index.scss');
@@ -67,7 +73,7 @@ const draw = game => {
 
   game.clearBricks(brickCollisionIndices);
 
-  if (brickCollisions.length > 0) {
+  if ((brickCollisions.length > 0) && (game.effect !== EFFECT_BALL_THROUGH)) {
     collisions = collisions.concat(brickCollisions);
   }
 
@@ -95,6 +101,30 @@ const draw = game => {
     painter.fillRect(brick, brick.color);
     painter.rect(brick);
   });
+
+  game.pills.forEach((pill, index) => {
+    if ((! game.isPaused) && (! game.hasWon) && (! game.hasLost)) {
+      pill.setNextPos();
+    }
+    painter.drawPill(pill.pos.x, pill.pos.y, pill.width, pill.height, randomColor());
+  });
+
+  game.pills.forEach((pill, index) => {
+    // dropped outside
+    if (pill.pos.y > (canvasHeight + 30)) {
+      game.pills.splice(index, 1);
+    }
+    // eaten by ship
+    const eaten = detectRectCollision(pill, shipRect);
+
+    if (eaten) {
+      game.pills.splice(index, 1);
+      game.applyPillEffect();
+    }
+  });
+
+  game.clearEffectIfNeeded();
+
   painter.drawCircle(ball.pos.x, ball.pos.y, ball.radius);
 
   painter.showScore(game.score, canvasWidth - 10, 20);
@@ -139,4 +169,20 @@ const draw = game => {
   }
 };
 
-const game = new Game(draw);
+const game = new Game((game) => {
+
+  if (game.effect === EFFECT_SLOW_SPEED) {
+    if (+new Date() % 3 === 0) {
+      draw(game);
+    }
+    return;
+  }
+
+  draw(game);
+
+  if (game.effect === EFFECT_FAST_SPEED) {
+    if (+new Date() % 2 === 0) {
+      draw(game);
+    }
+  }
+});
