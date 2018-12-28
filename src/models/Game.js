@@ -204,7 +204,9 @@ class Game {
     this.startedTime = 0;
     this.wonTime = 0;
     this.level += 1;
+    this.pills.length = 0;
     this.setBricks();
+    this.clearEffect();
   }
 
   reset() {
