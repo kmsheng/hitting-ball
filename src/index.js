@@ -141,7 +141,6 @@ const draw = game => {
         painter.showGameTip(`level ${game.level} cleared`, canvasWidth / 2, canvasHeight / 2 + 40);
         if ((now() - game.wonTime) > 2) {
           game.toNextLevel();
-          ship.isBallSticked = true;
         }
       }
       else {

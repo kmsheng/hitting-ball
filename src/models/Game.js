@@ -205,6 +205,7 @@ class Game {
     this.wonTime = 0;
     this.level += 1;
     this.pills.length = 0;
+    this.ship.isBallSticked = true;
     this.setBricks();
     this.clearEffect();
   }
